@@ -1,4 +1,5 @@
 This is a program where the user can store someone's contact information, edit it, delete it and view it.
+
 How the program works -->
 *  Starting options for the user
 
