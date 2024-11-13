@@ -18,7 +18,24 @@ def add_contact():
     global contact_fields
     global contact_database
     contact_data = []
-    for field in contact_fields:
+    existing_serials = set()
+    try:
+        with open(contact_database, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row:
+                    existing_serials.add(row[0])
+    except FileNotFoundError:
+        pass
+    while True:
+        serial_no = input("Enter Serial No.: ")
+        if serial_no in existing_serials:
+            print("This Serial No. already exists. Please enter a unique Serial No.")
+        else:
+            contact_data.append(serial_no)
+            existing_serials.add(serial_no)
+            break
+    for field in contact_fields[1:]:
         value = input("Enter " + field + ": ")
         contact_data.append(value)
     with open(contact_database, "a", encoding="utf-8") as f:
